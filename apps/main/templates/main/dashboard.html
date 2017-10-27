@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+    <style>
+        th, td, tr {border: 1px solid black;
+                    padding: 5px;
+                    }
+    </style>
+</head>
+<body> <h2>Hello, {{request.session.name}}</h2><a href='/logout'>Logout</a>
+    <h3>Your Wish List:</h3>
+    <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                {%for item in myitem %}
+                <tr>
+            <td><a href="/main/display/{{item.id}}">{{item.item_name}}</a></td>
+            <td>{{item.added_by.name}}</td>
+            <td>{{item.created_at}}</td>
+            <td><a href="/delete/{{item.id}}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            
+            {%for item in addeditem %}
+            <tr>
+        <td><a href="/main/display/{{item.id}}">{{item.item_name}}</a></td>
+        <td>{{item.added_by.name}}</td>
+        <td>{{item.created_at}}</td>
+        <td><a href="/remove/{{item.id}}">Remove from wishlist</a></td>
+        </tr>
+        {% endfor %}
+    
+
+
+    </tbody> 
+</table>
+
+
+  <h3>Other User's Wish List:</h3>
+    <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Added by</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in mylist%}
+            <td><a href="/main/display/{{item.id}}">{{item.item_name}}</a></td>
+            <td>{{item.added_by.name}}</td>
+            <td>{{item.created_at}}</td>
+            <td><a href="/add/{{item.id}}">Add to my wistlist</a></td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+    
+    
+
+    <br>
+    <a href="/addpage">Add Item</a>
+
+</body>
+</html>
